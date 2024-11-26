@@ -10,7 +10,7 @@ body{
     font-size: 30px;
 }
 
-.board{
+#board{
     position: absolute; 
     top: 200%;
     left: 50%;
@@ -29,7 +29,7 @@ body{
     padding: 0px;
 }
 
-.board td{
+#board td{
     border: 2px solid;
     border-color:rgb(139, 126, 126);
 }
