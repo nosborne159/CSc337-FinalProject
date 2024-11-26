@@ -1,5 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
     <head></head>
-    <body></body>
+    <body>
+        <div class="header">
+            <h1>2048</h1>
+        </div>
+        <div>
+            <!-- board -->
+            <table>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+            </table>
+            <!-- move buttons -->
+            <table>
+                <tr>
+                    <td></td>
+                    <td class="arrow" id="up" onclick="moveUp()">^</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="arrow" id="left" onclick="moveLeft()"><</td>
+                    <td class="arrow" id="down" onclick="moveDown()">v</td>
+                    <td class="arrow" id="right" onclick="moveRight()">></td>
+                </tr>
+            </table>
+            <!-- leaderboard button -->
+        </div>
+    </body>
 </html>
