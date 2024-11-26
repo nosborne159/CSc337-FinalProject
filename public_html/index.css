@@ -1,0 +1,35 @@
+
+body{
+    background-color:rgb(252, 232, 207);
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    position: relative;
+}
+
+.header{
+    text-align: center;
+    font-size: 30px;
+}
+
+.board{
+    position: absolute; 
+    top: 200%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    align-content: center;
+    border: 10px solid;
+    border-radius: 5px;
+    border-collapse: collapse;
+    border-color:rgb(139, 126, 126);
+
+    height: 400px;
+    width: 400px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0px;
+}
+
+.board td{
+    border: 2px solid;
+    border-color:rgb(139, 126, 126);
+}
