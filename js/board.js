@@ -6,6 +6,10 @@ class Board{
         tileNum = 0;
     }
 
+    clear(){
+        board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    }
+
     moveLeft(){
         for (let ii = 0; ii < 4; ii++){
             combined = false;
@@ -151,12 +155,12 @@ class Board{
     }
 
     addTile(){
-        x = Math.floor(Math.random() * (boardX));
-		y = Math.floor(Math.random() * (boardY));
+        x = Math.floor(Math.random() * (4));
+		y = Math.floor(Math.random() * (4));
 
 		while(board.get(y).get(x) != 0){
-			x = Math.floor(Math.random() * (boardX));
-			y = Math.floor(Math.random() * (boardY));
+			x = Math.floor(Math.random() * (4));
+			y = Math.floor(Math.random() * (4));
 		}
 
 		chanceOf4 = Math.random();
@@ -196,3 +200,5 @@ class Board{
 		return out;
 	}
 }
+
+export default board;
