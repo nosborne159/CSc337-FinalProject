@@ -127,6 +127,7 @@ function moveDown(){
 }
 
 function moveUp(){
+    console.log("up");
     for (let ii = 0; ii < 4; ii++){
         combined = false;
         for (let jj = 1; jj < 4; jj++){
