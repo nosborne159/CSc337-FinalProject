@@ -1,11 +1,11 @@
-
-
 function start(){
     board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
     score = 0;
     tileNum = 0;
+    highest = 4;
     addTile();
     addTile();
+    updateTiles();
 }
 
 function restart(){
@@ -16,9 +16,24 @@ function restart(){
 
 function clear(){
     board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    score = 0;
+    tileNum = 0;
+}
+
+function updateTiles(){
+    for (let ii = 0; ii < 4; ii++){
+        for (let jj = 0; jj < 4; jj++){
+            if (board[ii][jj] == 0){
+                document.getElementById("board").rows[ii].cells[jj].innerHTML = " ";
+            } else {
+                document.getElementById("board").rows[ii].cells[jj].innerHTML = board[ii][jj];
+            }
+        }
+    }
 }
 
 function moveLeft(){
+    moved = false;
     for (let ii = 0; ii < 4; ii++){
         combined = false;
         for (let jj = 0; jj < 4; jj++){
@@ -40,21 +55,39 @@ function moveLeft(){
                     score +=  board[ii][currentIndex];
                     tileNum --;
                     combined = true;
+                    moved = true;
+                    if (board[ii][currentIndex]>highest){
+                        highest = board[ii][currentIndex];
+                    }
                 } else if (currentIndex + 1 == jj){
                     combined = false;
                 } else {
                     board[ii][currentIndex + 1] = board[ii][jj];
                     board[ii][jj] = 0;
                     combined = false;
+                    moved = true;
+                }
+            } else {
+                board[ii][currentIndex] = board[ii][jj];
+                board[ii][jj] = 0;
+                combined = false;
+                if (currentIndex != jj){
+                    moved = true;
                 }
             }
         }
 
     }
-    addTile();
+    if (moved){
+        addTile();
+    }
+    updateTiles();
+    isOver();
+    return moved;
 }
 
 function moveRight(){
+    moved = false;
     for (let ii = 0; ii < 4; ii++){
         combined = false;
         for (let jj = 2; jj >= 0; jj--){
@@ -76,21 +109,39 @@ function moveRight(){
                     score +=  board[ii][currentIndex];
                     tileNum --;
                     combined = true;
+                    moved = true;
+                    if (board[ii][currentIndex]>highest){
+                        highest = board[ii][currentIndex];
+                    }
                 } else if (currentIndex - 1 == jj){
                     combined = false;
                 } else {
                     board[ii][currentIndex - 1] = board[ii][jj];
                     board[ii][jj] = 0;
                     combined = false;
+                    moved = true;
+                }
+            } else {
+                board[ii][currentIndex] = board[ii][jj];
+                board[ii][jj] = 0;
+                combined = false;
+                if (currentIndex != jj){
+                    moved = true;
                 }
             }
         }
 
     }
-    addTile();
+    if (moved){
+        addTile();
+    }
+    updateTiles();
+    isOver();
+    return moved;
 }
 
 function moveDown(){
+    moved = false;
     for (let ii = 0; ii < 4; ii++){
         combined = false;
         for (let jj = 2; jj >= 0; jj--){
@@ -107,26 +158,44 @@ function moveDown(){
             }
             if (down != 0){
                 if (down == board[jj][ii] && !combined){
-                    board[currentIndex][ii] = down * 2;
+                    board[currentIndex][ii] *= 2;
                     board[jj][ii] = 0;
                     score +=  board[currentIndex][ii];
                     tileNum --;
                     combined = true;
+                    moved = false;
+                    if (board[currentIndex][ii]>highest){
+                        highest = board[currentIndex][ii];
+                    }
                 } else if (currentIndex - 1 == jj){
                     combined = false;
                 } else {
                     board[currentIndex - 1][ii] = board[jj][ii];
                     board[jj][ii] = 0;
                     combined = false;
+                    moved = true;
+                }
+            } else {
+                board[currentIndex][ii] = board[jj][ii];
+                board[jj][ii] = 0;
+                combined = false;
+                if (currentIndex != jj){
+                    moved = true;
                 }
             }
         }
 
     }
-    addTile();
+    if (moved){
+        addTile();
+    }
+    updateTiles();
+    isOver();
+    return moved;
 }
 
 function moveUp(){
+    moved = false;
     for (let ii = 0; ii < 4; ii++){
         combined = false;
         for (let jj = 1; jj < 4; jj++){
@@ -148,21 +217,39 @@ function moveUp(){
                     score +=  board[currentIndex][ii];
                     tileNum --;
                     combined = true;
+                    moved = true;
+                    if (board[currentIndex][ii]>highest){
+                        highest = board[currentIndex][ii];
+                    }
                 } else if (currentIndex + 1 == jj){
                     combined = false;
                 } else {
                     board[currentIndex + 1][ii] = board[jj][ii];
                     board[jj][ii] = 0;
                     combined = false;
+                    moved = true;
+                }
+            } else {
+                board[currentIndex][ii] = board[jj][ii];
+                board[jj][ii] = 0;
+                combined = false;
+                if (currentIndex != jj){
+                    moved = true;
                 }
             }
         }
 
     }
-    addTile();
+    if (moved){
+        addTile();
+    }
+    updateTiles();
+    isOver();
+    return moved;
 }
 
-function addTile(){
+function addTile(){ 
+
     x = Math.floor(Math.random() * (4));
     y = Math.floor(Math.random() * (4));
 
@@ -181,29 +268,60 @@ function addTile(){
     tileNum++;
 }
 
-function getScore(){
-    return score;
+function isOver(){
+    if (highest == 2048 || (tileNum > 15 && !canMove())){
+        // end game
+        console.log("Game Over");
+        // store score, username, board
+        // hide buttons
+        // say game over
+        // unhide reset button
+    } 
 }
 
-function isFull(){
-    return tileNum == 16;
-}
-
-function toString(){
-    out = "┌" + "----".repeat(3) + "---┐";
+function canMove(){
+    movement = false;
     for (ii = 0; ii < 4; ii++){
-        out += "\n|";
         for (jj = 0; jj < 4; jj++){
-            if (board[ii][jj] != 0){
-                out += " " + board[ii][jj] + " |";
+            tmp = false;
+            // check left
+            if (jj == 0){
+                // out of bounds
+                tmp = tmp || false;
             } else {
-                out += " " + " " + " |";
+                tmp = tmp || checkNextTo(0, -1, ii, jj);
             }
-        }
-        if (ii != 3){
-            out += "\n|" + "---+".repeat(3) + "---|";
+            // check right
+            if (jj == 3){
+                // out of bounds
+                tmp = tmp || false;
+            } else {    
+                tmp = tmp || checkNextTo(0, 1, ii, jj);
+            }
+            // check up
+            if (ii == 0){
+                // out of bounds
+                tmp = tmp || false;
+            } else {
+                tmp = tmp || checkNextTo(-1, 0, ii, jj);
+            }
+            // check down
+            if (ii == 3){
+                // out of bounds
+                tmp = tmp || false;
+            } else {
+                tmp = tmp || checkNextTo(1, 0, ii, jj);
+            }
+            movement = movement || tmp;
         }
     }
-    out += "\n└" + "----".repeat(3) + "---┘";
-    return out;
+    return movement;
+}
+
+function checkNextTo(y, x, ii, jj){
+    return board[ii+y][jj+x] == board[ii][jj] || board[ii+y][jj+x] == 0;
+}
+
+function getScore(){
+    return score;
 }
