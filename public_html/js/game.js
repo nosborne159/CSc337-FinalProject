@@ -273,10 +273,17 @@ function isOver(){
         // end game
         console.log("Game Over");
         // store score, username, board
+
         // hide buttons
         // say game over
         // unhide reset button
     } 
+    // Example of how you might call the function
+    const username = 'Player1';
+    const score = 1500;
+    const grid = [[2, 4, 8, 16], [32, 64, 128, 256], [512, 1024, 2048, 4096], [8192, 16384, 32768, 65536]];
+
+    saveGameData(username, score, grid);
 }
 
 function canMove(){
@@ -324,4 +331,58 @@ function checkNextTo(y, x, ii, jj){
 
 function getScore(){
     return score;
+}
+
+// database handling 
+async function saveGameData(username, score, grid) {
+    const gameData = {
+        username: username,
+        score: score,
+        grid: grid
+    };
+
+    try {
+        const response = await fetch('http://127.0.0.1:5000/saveGame', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(gameData)  // Send data as JSON
+        });
+
+        if (response.ok) {
+            console.log('Game data saved successfully!');
+        } else {
+            console.log('Failed to save game data');
+        }
+    } catch (error) {
+        console.error('Error sending game data:', error);
+    }
+}
+
+
+saveGameData(username, score, grid);async function saveGameData(username, score, grid) {
+    const gameData = {
+        username: username,
+        score: score,
+        grid: grid
+    };
+
+    try {
+        const response = await fetch('http://127.0.0.1:5000/saveGame', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(gameData)  // Send data as JSON
+        });
+
+        if (response.ok) {
+            console.log('Game data saved successfully!');
+        } else {
+            console.log('Failed to save game data');
+        }
+    } catch (error) {
+        console.error('Error sending game data:', error);
+    }
 }
