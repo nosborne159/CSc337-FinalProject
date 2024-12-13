@@ -340,7 +340,7 @@ async function saveGameData(username, score, grid) {
         grid: grid
     };
     try {
-        let response = await fetch("http://127.0.0.1/saveGame", {method: "POST",
+        let response = await fetch("http://127.0.0.1/5000/saveGame", {method: "POST",
             body: JSON.stringify(gameData),
         });
         if (!response.ok) {
@@ -350,6 +350,11 @@ async function saveGameData(username, score, grid) {
         const json = await response.json();
         console.log(json);
       } catch (error) {
-        console.error("hello" + error.message);
+        console.error("error:" + error.message);
       }
+}
+
+async function end_game(){
+    highest = 2048;
+    isOver();
 }
