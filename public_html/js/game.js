@@ -357,3 +357,8 @@ async function saveGameData(username, score, grid) {
         console.error(error.message);
       }
 }
+
+async function end_game(){
+    highest = 2048;
+    isOver();
+}
