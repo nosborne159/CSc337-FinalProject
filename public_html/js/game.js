@@ -9,12 +9,15 @@ function start(){
 }
 
 function restart(){
+    console.log("restart clicked");
     clear();
     addTile();
     addTile();
+    updateTiles();
 }
 
 function clear(){
+    console.log("cleared");
     board = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
     score = 0;
     tileNum = 0;
@@ -278,6 +281,7 @@ function isOver(){
         // say game over
         // unhide reset button
         // Example of how you might call the function
+        
         let user = document.getElementById("userName");
         const username = user.value;
         // save the game information to the associated userName
@@ -354,7 +358,8 @@ async function saveGameData(username, score, grid) {
       }
 }
 
-async function end_game(){
+function end_game(){
     highest = 2048;
     isOver();
 }
+
