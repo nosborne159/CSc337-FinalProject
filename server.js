@@ -53,7 +53,7 @@ app.listen(port, host, () => {
     console.log(`Example app listening at http://${host}:${port}`);
 });
 
-// MongoDB connection (re-enable if necessary)
+
 async function main() {
     try {
         await mongoose.connect(URL);

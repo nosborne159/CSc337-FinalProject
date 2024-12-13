@@ -279,11 +279,10 @@ function isOver(){
         // unhide reset button
     } 
     // Example of how you might call the function
-    const username = 'Player1';
-    const score = 1500;
-    const grid = [[2, 4, 8, 16], [32, 64, 128, 256], [512, 1024, 2048, 4096], [8192, 16384, 32768, 65536]];
-
-    saveGameData(username, score, grid);
+    let user = document.getElementById("userName");
+    const username = user.value();
+    // save the game information to the associated userName
+    saveGameData(username, score, board);
 }
 
 function canMove(){
