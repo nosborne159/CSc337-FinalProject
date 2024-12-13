@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>2048</title>
+        <script src="../js/game.js"></script>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body onload="start()">
+        <div class="header">
+            <h1>2048</h1>
+        </div>
+        <div class="game-area">
+            <!-- board -->
+            <table id = "board">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+            <!-- move buttons -->
+            <table>
+                <tr>
+                    <td></td>
+                    <td class="arrow" id="up" onclick="moveUp()">^</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="arrow" id="left" onclick="moveLeft()"><</td>
+                    <td></td>
+                    <td class="arrow" id="right" onclick="moveRight()">></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="arrow" id="down" onclick="moveDown()">v</td>
+                </tr>
+
+            </table>
+            <!-- leaderboard button -->
+        </div>
+    </body>
+</html>
