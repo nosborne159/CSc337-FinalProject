@@ -20,9 +20,6 @@ async function start() {
     }
 }
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-});
 
 app.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}/`);
