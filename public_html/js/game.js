@@ -277,12 +277,12 @@ function isOver(){
         // hide buttons
         // say game over
         // unhide reset button
+        // Example of how you might call the function
+        let user = document.getElementById("userName");
+        const username = user.value;
+        // save the game information to the associated userName
+        saveGameData(username, score, board);
     } 
-    // Example of how you might call the function
-    let user = document.getElementById("userName");
-    const username = user.value();
-    // save the game information to the associated userName
-    saveGameData(username, score, board);
 }
 
 function canMove(){
@@ -339,49 +339,17 @@ async function saveGameData(username, score, grid) {
         score: score,
         grid: grid
     };
-
     try {
-        const response = await fetch('http://127.0.0.1:5000/saveGame', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(gameData)  // Send data as JSON
+        let response = await fetch("http://127.0.0.1/saveGame", {method: "POST",
+            body: JSON.stringify(gameData),
         });
-
-        if (response.ok) {
-            console.log('Game data saved successfully!');
-        } else {
-            console.log('Failed to save game data');
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
         }
-    } catch (error) {
-        console.error('Error sending game data:', error);
-    }
-}
-
-
-saveGameData(username, score, grid);async function saveGameData(username, score, grid) {
-    const gameData = {
-        username: username,
-        score: score,
-        grid: grid
-    };
-
-    try {
-        const response = await fetch('http://127.0.0.1:5000/saveGame', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(gameData)  // Send data as JSON
-        });
-
-        if (response.ok) {
-            console.log('Game data saved successfully!');
-        } else {
-            console.log('Failed to save game data');
-        }
-    } catch (error) {
-        console.error('Error sending game data:', error);
-    }
+    
+        const json = await response.json();
+        console.log(json);
+      } catch (error) {
+        console.error("hello" + error.message);
+      }
 }
