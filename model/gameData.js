@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 // creating the userSchema to hold the user's associated data
-const userSchema= new mongoose.Schema({
+const gameDataSchema= new mongoose.Schema({
     username: String,
-    highScore: Number,
-    grid: [[Number]]
+    score: Number,
+    grid: [[Number]],
 });
 
+const userData = mongoose.model('gameData', gameDataSchema);
 
-const userData = mongoose.model('user', userSchema);
 module.exports = userData;

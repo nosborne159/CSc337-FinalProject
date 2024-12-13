@@ -344,8 +344,12 @@ async function saveGameData(username, score, grid) {
         grid: grid
     };
     try {
-        let response = await fetch("http://127.0.0.1/5000/saveGame", {method: "POST",
+        let response = await fetch("http://127.0.0.1:5000/saveGame", {
             body: JSON.stringify(gameData),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         if (!response.ok) {
           throw new Error(`Response status: ${response.status}`);
@@ -354,7 +358,7 @@ async function saveGameData(username, score, grid) {
         const json = await response.json();
         console.log(json);
       } catch (error) {
-        console.error("error:" + error.message);
+        console.error(error.message);
       }
 }
 

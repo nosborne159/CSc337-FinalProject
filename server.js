@@ -7,6 +7,7 @@ app = express();
 const host = '127.0.0.1';
 const port = 5000;
 
+app.use(express.json());
 app.use(express.static(__dirname + "/public_html"));
 start();
 
@@ -28,21 +29,17 @@ app.listen(port, host, () => {
 });
 
 app.post('/saveGame', async function (req, res) {
-    const { username, score, grid } = req.body;
-
-    try {
-        // Create a new game data record and save it
-        const newGameData = new GameData({
-            user,
-            score,
-            grid,
+    const {username, score, grid} = req.body;
+    try{
+        let data = new gameData({
+            username: username,
+            score: score,
+            grid : grid,
         });
-
-        await newGameData.save();
-        console.log('Game data saved successfully!');
-        res.status(201).send('Game data saved');
-    } catch (error) {
-        console.error('Error saving game data:', error);
-        res.status(500).send('Error saving game data');
-    }
+        await data.save();
+        res.status(200);
+    } catch (err) {
+        console.error('Error saving game data:', err);
+        res.status(500);
+    }   
 });
