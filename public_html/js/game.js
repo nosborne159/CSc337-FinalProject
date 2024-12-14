@@ -9,6 +9,15 @@ function start(){
 }
 
 function restart(){
+    let x = document.getElementsByClassName("hidden");
+    for (let ii = 0; ii < x.length; ii++){
+        x[ii].style.visibility = "hidden";
+    }
+
+    let y = document.getElementsByClassName("visible");
+    for (let ii = 0; ii < y.length; ii++){
+        y[ii].style.visibility = "visible";
+    }
     console.log("restart clicked");
     clear();
     addTile();
@@ -33,6 +42,7 @@ function updateTiles(){
             }
         }
     }
+    document.getElementById("score").innerHTML = "Score: " + score;
 }
 
 function moveLeft(){
@@ -282,11 +292,56 @@ function isOver(){
         // unhide reset button
         // Example of how you might call the function
         
-        let user = document.getElementById("userName");
-        const username = user.value;
-        // save the game information to the associated userName
-        saveGameData(username, score, board);
+        let x = document.getElementsByClassName("hidden");
+        for (let ii = 0; ii < x.length; ii++){
+            x[ii].style.visibility = "visible";
+        }
+
+        let y = document.getElementsByClassName("visible");
+        for (let ii = 0; ii < y.length; ii++){
+            y[ii].style.visibility = "hidden";
+        }
+        document.getElementById("submitButton").style.visibility = "visible"
     } 
+}
+
+function submitStuff(){
+    let user = document.getElementById("userName");
+    const username = user.value;
+    // save the game information to the associated userName
+    saveGameData(username, score, board);
+    document.getElementById("submitButton").style.visibility = "hidden";
+    document.getElementById("userName").style.visibility = "hidden";
+    document.getElementById("resetButton").style.visibility = "visible";
+}
+
+async function showLeaderboard(){
+    if (document.getElementById("leaderboardToggle").innerText == '1'){
+        try {
+            let response = await fetch("http://127.0.0.1:5000/leaderboard");
+            
+            if (!response.ok) {
+              throw new Error(`Response status: ${response.status}`);
+            }
+        
+            const json = await response.json();
+            let text = "";
+    
+            for (let ii = 0; ii < json.length; ii++){
+                text = text + (ii + 1) + ". " + json[ii][0] + ":" +json[ii][1] + "\n";
+            }
+    
+            document.getElementById("LeaderBoard").innerText = text;
+    
+            console.log("Got Leaderboard");
+          } catch (error) {
+            console.error(error.message);
+          }
+          document.getElementById("leaderboardToggle").innerText = 0;
+    } else {
+        document.getElementById("LeaderBoard").innerText = "";
+        document.getElementById("leaderboardToggle").innerText = 1;
+    }
 }
 
 function canMove(){

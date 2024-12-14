@@ -7,16 +7,17 @@
         <link rel="stylesheet" href="index.css">
     </head>
     <body onload="start()">
+        <button type="button" id="leaderboard" onclick="showLeaderboard()">Leaderboard</button>
+        <p id="LeaderBoard"></p>
+        <p hidden id="leaderboardToggle">1</p>
         <div class="header">
             <h1>2048</h1>
+            <h8 id="score">Score: 0</h8>
             <div class="hidden">
-                <input type="text" id="userName" name="userName">
-                <button type="button" class="hidden" onclick="restart()">Reset Game</button>
-                
+                <input type="text" id="userName" class="hidden" name="userName">
+                <button type="button" id="submitButton" onclick="submitStuff()">Submit Score</button>
             </div>
-            <div>
-                <button type="button" onclick="end_game()">endGame</button>
-            </div>
+            <button type="button" id="resetButton" class="visible" onclick="restart()">Reset Game</button>
         </div>
         <div class="game-area">
             <!-- board -->
@@ -47,7 +48,7 @@
                 </tr>
             </table>
             <!-- move buttons -->
-            <table>
+            <table class="visible">
                 <tr>
                     <td></td>
                     <td class="arrow" id="up" onclick="moveUp()">^</td>

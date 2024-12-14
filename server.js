@@ -40,3 +40,31 @@ app.post('/saveGame', async function (req, res) {
         res.status(500);
     }   
 });
+
+app.get('/leaderboard', async function (req, res) {
+    try {
+        const scores = await gameData.find({});
+
+        let scoresArray = {};
+
+        for (let ii = 0; ii < scores.length; ii ++){
+            if (scores[ii]['username'] in scoresArray){
+                if (scores[ii]['score'] > scoresArray[scores[ii]['username']]){
+                    scoresArray[scores[ii]['username']] = scores[ii]['score'];
+                }
+            } else {
+                scoresArray[scores[ii]['username']] = scores[ii]['score'];
+            }
+        }
+
+        let sortedScores = Object.fromEntries(
+            Object.entries(scoresArray).sort(([,a],[,b]) => b - a)
+        );
+
+        let top10 = Object.entries(sortedScores).slice(0, 10);
+
+        res.status(200).json(top10);
+    } catch (error){
+        res.status(500).json({message: error.message});
+    }
+})

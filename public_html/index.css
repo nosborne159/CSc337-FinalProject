@@ -79,3 +79,20 @@ body{
     visibility: hidden;
 }
 
+.visible{
+    visibility: visible;
+}
+
+#leaderboard{
+    position: absolute;
+    margin: 5px;
+    top: 5px;
+    right: 5px;
+}
+
+#LeaderBoard{
+    position: absolute;
+    margin: 5px;
+    top: 50px;
+    right: 5px;
+}
