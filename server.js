@@ -4,7 +4,7 @@ const gameData = require('./model/gameData');
 const URL = 'mongodb://127.0.0.1/337_game_db'; // Uncomment if MongoDB is needed
 
 app = express();
-const host = '127.0.0.1';
+const host = '64.23.150.104';
 const port = 5000;
 
 app.use(express.json());
